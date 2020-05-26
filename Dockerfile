@@ -2,6 +2,7 @@ FROM scratch
 FROM ubuntu:18.04
 LABEL maintainer="vadim@clusterside.com"
 ARG VERSION=2.0.0
+USER 1001
 
 RUN apt-get update \
     && apt-get -y upgrade \
@@ -40,8 +41,6 @@ COPY pre-conf/atlas-env.sh /opt/apache-atlas-${VERSION}/conf/atlas-env.sh
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && patch -b -f < atlas_start.py.patch \
     && patch -b -f < atlas_config.py.patch
-
-USER 1001
 
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && ./atlas_start.py -setup || true
