@@ -41,6 +41,8 @@ RUN cd /opt/apache-atlas-${VERSION}/bin \
     && patch -b -f < atlas_start.py.patch \
     && patch -b -f < atlas_config.py.patch
 
+USER 1001
+
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && ./atlas_start.py -setup || true
 
